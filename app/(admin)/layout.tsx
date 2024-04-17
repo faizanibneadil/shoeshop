@@ -7,6 +7,8 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Shoe Shop | Admin",
   description: "Manage you'r shoe store hare.",
+  manifest: "./manifest.json",
+  metadataBase: new URL(process.env.BASE_URL!),
 };
 
 const RootLayout: React.FC<React.PropsWithChildren> = ({ children }) => {
