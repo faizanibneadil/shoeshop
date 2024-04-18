@@ -42,7 +42,7 @@ const UserMenu: React.FC = () => {
                 href={menu.path}
                 className={buttonVariants({
                   variant: "secondary",
-                  className: "w-full text-left",
+                  className: "w-full text-left last:mb-0 mb-2",
                 })}
               >
                 {menu.name}
