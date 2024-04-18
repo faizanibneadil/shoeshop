@@ -25,6 +25,7 @@ const MobileMenu: React.FC = () => {
           </Link>
           {mobileNavigation.map((menu) => (
             <Link
+              key={menu.path}
               href={menu.path}
               className="text-muted-foreground hover:text-foreground"
             >

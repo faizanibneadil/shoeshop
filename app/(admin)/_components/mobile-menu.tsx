@@ -34,6 +34,7 @@ const MobileMenu: React.FC = () => {
           </Link>
           {adminMobileNavigation.map((menu) => (
             <Link
+              key={menu.path}
               href={menu.path}
               className="mx-[-0.65rem] flex items-center gap-4 rounded-xl bg-muted px-3 py-2 text-foreground hover:text-foreground"
             >
