@@ -15,6 +15,7 @@ const Navigation: React.FC = () => {
       </Link>
       {navigation.map((menu) => (
         <Link
+          key={menu.path}
           href={menu.path}
           className="text-muted-foreground transition-colors hover:text-foreground"
         >
