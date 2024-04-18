@@ -1,9 +1,9 @@
-import { mobileNavigation } from "@/app/_menus/menu";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Menu, Package2 } from "lucide-react";
 import Link from "next/link";
 import React from "react";
+import { navigation } from "../_menu";
 
 const MobileMenu: React.FC = () => {
   return (
@@ -23,7 +23,7 @@ const MobileMenu: React.FC = () => {
             <Package2 className="h-6 w-6" />
             <span className="sr-only">Shoe Shop</span>
           </Link>
-          {mobileNavigation.map((menu) => (
+          {navigation.map((menu) => (
             <Link
               key={menu.path}
               href={menu.path}

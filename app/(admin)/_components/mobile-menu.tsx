@@ -1,4 +1,3 @@
-import { adminMobileNavigation } from "@/app/_menus/menu";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -13,6 +12,7 @@ import {
   Users,
 } from "lucide-react";
 import Link from "next/link";
+import { navigation } from "../_menu";
 
 const MobileMenu: React.FC = () => {
   return (
@@ -32,7 +32,7 @@ const MobileMenu: React.FC = () => {
             <Package2 className="h-6 w-6" />
             <span className="sr-only">Shoe Shop</span>
           </Link>
-          {adminMobileNavigation.map((menu) => (
+          {navigation.map((menu) => (
             <Link
               key={menu.path}
               href={menu.path}

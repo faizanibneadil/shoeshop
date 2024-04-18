@@ -1,6 +1,7 @@
 import { Package2 } from "lucide-react";
 import Link from "next/link";
 import React from "react";
+import { navigation } from "../_menu";
 
 const Navigation: React.FC = () => {
   return (
@@ -12,24 +13,14 @@ const Navigation: React.FC = () => {
         <Package2 className="h-6 w-6" />
         <span className="sr-only">Shoe Shop</span>
       </Link>
-      <Link
-        href="#"
-        className="text-muted-foreground transition-colors hover:text-foreground"
-      >
-        Products
-      </Link>
-      <Link
-        href="#"
-        className="text-muted-foreground transition-colors hover:text-foreground"
-      >
-        Categories
-      </Link>
-      <Link
-        href="#"
-        className="text-muted-foreground transition-colors hover:text-foreground"
-      >
-        Orders
-      </Link>
+      {navigation.map((menu) => (
+        <Link
+          href={menu.path}
+          className="text-muted-foreground transition-colors hover:text-foreground"
+        >
+          {menu.name}
+        </Link>
+      ))}
     </nav>
   );
 };

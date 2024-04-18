@@ -4,10 +4,8 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Link from "next/link";
 import "../globals.css";
-import MobileMenu from "./_components/mobile-menu";
+import Header from "./_components/header";
 import Navigation from "./_components/navigation";
-import SearchForm from "./_components/search-form";
-import UserMenu from "./_components/user-menu";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -46,11 +44,7 @@ const RootLayout: React.FC<React.PropsWithChildren> = ({ children }) => {
             </div>
           </div>
           <div className="flex flex-col">
-            <header className="flex h-14 items-center gap-4 border-b bg-muted/40 px-4 lg:h-[60px] lg:px-6">
-              <MobileMenu />
-              <SearchForm />
-              <UserMenu />
-            </header>
+            <Header />
             <main className="flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6">
               {children}
             </main>
