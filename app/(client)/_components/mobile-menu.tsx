@@ -1,3 +1,4 @@
+import { mobileNavigation } from "@/app/_menus/menu";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Menu, Package2 } from "lucide-react";
@@ -16,36 +17,20 @@ const MobileMenu: React.FC = () => {
       <SheetContent side="left">
         <nav className="grid gap-6 text-lg font-medium">
           <Link
-            href="#"
+            href="/"
             className="flex items-center gap-2 text-lg font-semibold"
           >
             <Package2 className="h-6 w-6" />
             <span className="sr-only">Shoe Shop</span>
           </Link>
-          <Link
-            href="#"
-            className="text-muted-foreground hover:text-foreground"
-          >
-            Products
-          </Link>
-          <Link
-            href="#"
-            className="text-muted-foreground hover:text-foreground"
-          >
-            Categories
-          </Link>
-          <Link
-            href="#"
-            className="text-muted-foreground hover:text-foreground"
-          >
-            Orders
-          </Link>
-          <Link
-            href="/admin"
-            className="text-muted-foreground hover:text-foreground"
-          >
-            Dashboard
-          </Link>
+          {mobileNavigation.map((menu) => (
+            <Link
+              href={menu.path}
+              className="text-muted-foreground hover:text-foreground"
+            >
+              {menu.name}
+            </Link>
+          ))}
         </nav>
       </SheetContent>
     </Sheet>
