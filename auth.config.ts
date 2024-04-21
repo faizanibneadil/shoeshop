@@ -3,7 +3,7 @@ import type { NextAuthConfig } from "next-auth"
 import { prisma } from "./config/db"
 
 export default {
-    trustHost: true,
+    trustHost: false,
     providers: [
         Credentials({
             authorize: async (credentials, req) => {
