@@ -28,7 +28,7 @@ const LoginForm: React.FC = memo(() => {
       toast.error(error?.validationErrors?.email, { id: "login" });
       toast.error(error?.validationErrors?.password, { id: "login" });
     },
-    onExecute: () => {
+    onExecute: (res) => {
       toast.loading("Logging you in ...", { id: "login" });
     },
     onSuccess: (res) => {

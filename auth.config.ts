@@ -7,6 +7,7 @@ export default {
     providers: [
         Credentials({
             authorize: async (credentials, req) => {
+                console.log("credentials", credentials)
                 const user = await prisma.user.findUnique({
                     where: { email: credentials.email as string },
                     select: { email: true, name: true, image: true }

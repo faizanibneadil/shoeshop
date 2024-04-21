@@ -6,7 +6,7 @@ import { loginSchema } from "@/schema";
 
 export const login = action(loginSchema, async (values) => {
     try {
-        await signIn("credentials", { email: values.email, password: values.password, redirectTo: "/" });
+        await signIn("credentials", { ...values });
         return { success: "Successful Login" }
     } catch (error) {
         return { fail: "Something Went Wrong." }
