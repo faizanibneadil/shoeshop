@@ -5,7 +5,8 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextSearch", "fullTextIndex"]
 }
 
 datasource db {
@@ -13,8 +14,176 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum ProductStatus {
+  ARCHIVED
+  PUBLISHED
+  DRAFT
+  PENDING
+  DELETED
+}
+
+model Product {
+  id           String        @id @default(uuid())
+  name         String        @default("unknown") @db.Text
+  slug         String        @unique
+  salePrice    Int           @default(0) @map("sale_price") @db.Integer
+  puchasePrice Int           @default(0) @map("purchase_price") @db.Integer
+  reducedPrice Int           @default(0) @map("reduced_price") @db.Integer
+  profit       Int           @default(0) @db.Integer
+  stock        Int           @default(0) @db.Integer
+  userId       String        @map("user_id")
+  status       ProductStatus @default(PENDING)
+  images       Image[]
+  variantBy    Product[]     @relation("variants")
+  variants     Product[]     @relation("variants")
+  categories   Category[]
+  createdBy    User?         @relation(fields: [userId], references: [id])
+  createdAt    DateTime      @default(now()) @map("created_at")
+  updatedAt    DateTime      @updatedAt @map("updated_at")
+  deletedAt    DateTime      @updatedAt @map("deleted_at")
+
+  @@index([salePrice])
+  @@index([puchasePrice])
+  @@index([reducedPrice])
+  @@index([stock])
+  @@index([profit])
+  @@index([status])
+  @@index([userId])
+  @@map("products")
+}
+
+enum ImageStatus {
+  DELETED
+  PUBLISHED
+  PENDING
+}
+
+model Image {
+  id        String      @id @default(uuid())
+  imageUrl  String?     @unique @map("image_url") @db.Text
+  status    ImageStatus @default(PENDING) @map("image_status")
+  createdBy User?       @relation(fields: [userId], references: [id])
+  userId    String?     @map("user_id")
+  createdAt DateTime    @default(now()) @map("created_at")
+  updatedAt DateTime    @updatedAt @map("updated_at")
+  deletedAt DateTime    @updatedAt @map("deleted_at")
+  Product   Product[]
+  Category  Category[]
+
+  @@index([status])
+  @@map("images")
+}
+
+enum CategoryStatus {
+  PENDING
+  PUBLISHED
+  ARCHIVED
+  DELETED
+}
+
+model Category {
+  id            String         @id @default(uuid())
+  name          String         @default("unknown") @db.Text
+  slug          String         @unique @db.Text
+  image         Image?         @relation(fields: [imageId], references: [id])
+  imageId       String?        @map("image_id")
+  status        CategoryStatus @default(PENDING)
+  subCategories Category[]     @relation("sub_categories")
+  categoryBy    Category[]     @relation("sub_categories")
+  createdAt     DateTime       @default(now()) @map("created_at")
+  updatedAt     DateTime       @updatedAt @map("updated_at")
+  deletedAt     DateTime       @updatedAt @map("deleted_at")
+  Product       Product?       @relation(fields: [productId], references: [id])
+  productId     String?
+
+  @@index([imageId])
+  @@index([productId])
+  @@index([status])
+  @@map("categories")
+}
+
+// Next-Auth
+model Account {
+  id                String  @id @default(uuid())
+  userId            String  @map("user_id")
+  type              String
+  provider          String
+  providerAccountId String  @map("provider_account_id")
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@map("accounts")
+}
+
+model Session {
+  id           String   @id @default(uuid())
+  sessionToken String   @unique @map("session_token")
+  userId       String   @map("user_id")
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+enum UserRole {
+  ADMIN
+  CUSTOMER
+}
+
+enum userStatus {
+  ACTIVE
+  PENDING
+  DELETED
+}
+
 model User {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String?
+  id             String          @id @default(uuid())
+  name           String?
+  email          String?         @unique
+  emailVerified  DateTime?       @map("email_verified")
+  image          String?
+  role           UserRole        @default(CUSTOMER)
+  accounts       Account[]
+  sessions       Session[]
+  authenticators Authenticator[]
+  Product        Product[]
+  Image          Image[]
+  status         userStatus      @default(PENDING)
+  createdAt      DateTime        @default(now()) @map("created_at")
+  updatedAt      DateTime        @updatedAt @map("updated_at")
+  deletedAt      DateTime        @updatedAt @map("deleted_at")
+
+  @@index([status])
+  @@map("users")
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+  @@map("verificationtokens")
+}
+
+model Authenticator {
+  id                   String  @id @default(uuid())
+  credentialID         String  @unique
+  userId               String
+  providerAccountId    String
+  credentialPublicKey  String
+  counter              Int
+  credentialDeviceType String
+  credentialBackedUp   Boolean
+  transports           String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

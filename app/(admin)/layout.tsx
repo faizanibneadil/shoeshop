@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import { Bell, Package2 } from "lucide-react";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
@@ -6,6 +6,7 @@ import Link from "next/link";
 import "../globals.css";
 import Header from "./_components/header";
 import Navigation from "./_components/navigation";
+import { Toaster } from "@/components/ui/sonner";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -31,14 +32,17 @@ const RootLayout: React.FC<React.PropsWithChildren> = ({ children }) => {
                   <Package2 className="h-6 w-6" />
                   <span className="">Shoe Shop</span>
                 </Link>
-                <Button
-                  variant="outline"
-                  size="icon"
-                  className="ml-auto h-8 w-8"
+                <Link
+                  href="/notifications"
+                  className={buttonVariants({
+                    variant: "outline",
+                    size: "icon",
+                    className: "ml-auto h-8 w-8",
+                  })}
                 >
                   <Bell className="h-4 w-4" />
                   <span className="sr-only">Toggle notifications</span>
-                </Button>
+                </Link>
               </div>
               <Navigation />
             </div>
@@ -50,6 +54,7 @@ const RootLayout: React.FC<React.PropsWithChildren> = ({ children }) => {
             </main>
           </div>
         </div>
+        <Toaster />
       </body>
     </html>
   );

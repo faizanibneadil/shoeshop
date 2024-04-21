@@ -12,6 +12,5 @@ export const prisma =
       process.env.NODE_ENV === "development" ? ["error", "warn"] : ["error"],
   });
 
-// export const xPrisma = prisma.$extends(withAccelerate())
 
 if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = prisma;

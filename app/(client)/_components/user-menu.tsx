@@ -16,6 +16,7 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
+import Logout from "@/app/_components/logout";
 
 const UserMenu: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -49,11 +50,11 @@ const UserMenu: React.FC = () => {
               </Link>
             ))}
           </div>
-          {/* <DrawerFooter className="pt-2">
+          <DrawerFooter className="pt-2">
             <DrawerClose asChild>
-              <Button variant="outline">Cancel</Button>
+              <Logout />
             </DrawerClose>
-          </DrawerFooter> */}
+          </DrawerFooter>
         </DrawerContent>
       </Drawer>
     );
@@ -86,6 +87,7 @@ const UserMenu: React.FC = () => {
             </Link>
           ))}
         </nav>
+        <Logout />
       </SheetContent>
     </Sheet>
   );

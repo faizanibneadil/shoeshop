@@ -1,7 +1,7 @@
 import React from "react";
 
-const Page: React.FC = () => {
-  return <div>Orders Page</div>;
+const Page = () => {
+  return <div>Order Page</div>;
 };
 
 export default Page;

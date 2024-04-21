@@ -5,6 +5,7 @@ import MobileMenu from "./_components/mobile-menu";
 import Navigation from "./_components/navigation";
 import SearchForm from "./_components/search-form";
 import UserMenu from "./_components/user-menu";
+import { Toaster } from "@/components/ui/sonner";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -32,6 +33,7 @@ const RootLayout: React.FC<React.PropsWithChildren> = ({ children }) => {
             {children}
           </main>
         </div>
+        <Toaster />
       </body>
     </html>
   );
