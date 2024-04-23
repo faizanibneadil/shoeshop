@@ -30,16 +30,19 @@ const nextConfig = {
         protocol: "https",
         hostname: "img.freepik.com",
       },
+      {
+        protocol: "https",
+        hostname: "choiceshoes.pk",
+      },
     ],
   },
-  //   experimental: {
-  //     serverComponentsExternalPackages: [
-  //       "@prisma/client",
-  //       "date-fns",
-  //       "prisma",
-  //       "autoprefixer",
-  //     ],
-  //   },
+  experimental: {
+    serverComponentsExternalPackages: [
+      "@prisma/client",
+      "prisma",
+      "autoprefixer",
+    ],
+  },
   logging: {
     fetches: {
       fullUrl: true,

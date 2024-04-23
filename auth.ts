@@ -8,11 +8,9 @@ export const { handlers, auth, signIn, signOut, unstable_update } = NextAuth({
     callbacks: {
         session: async ({ session, token, user, trigger }) => {
             session.user.id = token?.sub as string
-            console.log("SESSION", session)
             return session
         },
         jwt: async ({ account, token, user, profile, session, trigger }) => {
-            console.log("TOKEN", token)
             return token
         },
     },

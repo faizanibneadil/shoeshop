@@ -87,7 +87,7 @@ const UserMenu: React.FC = () => {
             </Link>
           ))}
         </nav>
-        <Logout />
+        {/* <Logout /> */}
       </SheetContent>
     </Sheet>
   );
